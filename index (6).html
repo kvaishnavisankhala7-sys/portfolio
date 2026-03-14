@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vaishnavi — Developer Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #080507;
+      --bg2:       #120a0d;
+      --bg3:       #1c1014;
+      --border:    #2a1218;
+      --border2:   #3d1a22;
+      --text:      #eeddd5;
+      --text2:     #957068;
+      --text3:     #503530;
+      --accent:    #7d1c2e;
+      --accent2:   #c04060;
+      --accent-bg: rgba(125,28,46,0.12);
+      --radius:    14px;
+      --radius-lg: 22px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 9999;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; opacity: 0.5;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 2.5rem;
+      background: rgba(8,5,7,0.9);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem; font-weight: 600;
+      color: var(--accent2); letter-spacing: 0.02em; text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none; color: var(--text2);
+      font-size: 0.85rem; letter-spacing: 0.07em; text-transform: uppercase;
+      transition: color 0.25s; position: relative;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -3px; left: 0; right: 0;
+      height: 1px; background: var(--accent2);
+      transform: scaleX(0); transform-origin: right; transition: transform 0.3s;
+    }
+    .nav-links a:hover { color: var(--accent2); }
+    .nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
+
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .hamburger span { display: block; width: 24px; height: 1.5px; background: var(--text2); transition: all 0.3s; }
+
+    /* SECTIONS — all visible, normal scroll */
+    section { padding: 6rem 2rem 5rem; width: 100%; }
+    #home { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding-top: 5rem; position: relative; }
+
+    .container { width: 100%; max-width: 880px; margin: 0 auto; }
+
+    /* HOME */
+    .eyebrow {
+      font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--accent2); margin-bottom: 1.2rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .eyebrow::before { content: ''; display: block; width: 32px; height: 1px; background: var(--accent2); }
+
+    #home h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.2rem, 8.5vw, 7rem);
+      font-weight: 300; line-height: 1.04; color: var(--text); margin-bottom: 0.5rem;
+    }
+    #home h1 em { font-style: italic; color: var(--accent2); }
+
+    .typing-wrapper {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+      font-weight: 300; font-style: italic;
+      color: var(--text2); margin-bottom: 1.8rem; min-height: 2.6rem;
+    }
+    #typed-text { color: var(--accent2); font-weight: 400; }
+    .cursor {
+      display: inline-block; width: 2px; height: 1em;
+      background: var(--accent2); margin-left: 3px; vertical-align: middle;
+      animation: blink 0.9s step-end infinite;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    .home-desc {
+      max-width: 520px; color: var(--text2); font-size: 1rem;
+      font-weight: 300; line-height: 1.85; margin-bottom: 2.8rem;
+    }
+
+    .btn-group { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.7rem 1.6rem; border-radius: 999px;
+      font-family: 'DM Sans', sans-serif; font-size: 0.875rem;
+      text-decoration: none; cursor: pointer; transition: all 0.28s ease;
+    }
+    .btn-primary { background: var(--accent); color: #eeddd5; border: 1px solid var(--accent); }
+    .btn-primary:hover { background: var(--accent2); border-color: var(--accent2); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(125,28,46,0.45); }
+    .btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border2); }
+    .btn-secondary:hover { border-color: var(--accent2); color: var(--accent2); transform: translateY(-2px); }
+
+    .scroll-hint {
+      position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+    }
+    .scroll-hint span { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text3); }
+    .scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--text3), transparent); animation: scrollAnim 1.8s ease infinite; }
+    @keyframes scrollAnim { 0%{opacity:0;transform:scaleY(0);transform-origin:top} 50%{opacity:1;transform:scaleY(1)} 100%{opacity:0;transform:scaleY(0);transform-origin:bottom} }
+
+    .section-divider { width: 100%; max-width: 880px; margin: 0 auto; border: none; border-top: 1px solid var(--border); }
+
+    /* SECTION HEADER */
+    .section-label {
+      font-size: 0.73rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--accent2); margin-bottom: 0.7rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .section-label::before { content: ''; display: block; width: 28px; height: 1px; background: var(--accent2); }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      font-weight: 300; line-height: 1.1; margin-bottom: 2.6rem; color: var(--text);
+    }
+
+    /* ABOUT */
+    .about-body { display: grid; grid-template-columns: 1.4fr 1fr; gap: 3.5rem; margin-bottom: 4rem; align-items: start; }
+    .about-text p { color: var(--text2); font-weight: 300; margin-bottom: 1.2rem; font-size: 0.975rem; }
+    .about-aside { display: flex; flex-direction: column; gap: 1.2rem; }
+    .about-stat { padding: 1.2rem 1.4rem; background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); transition: border-color 0.25s; }
+    .about-stat:hover { border-color: var(--border2); }
+    .about-stat-num { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 600; color: var(--accent2); line-height: 1; margin-bottom: 0.2rem; }
+    .about-stat-label { font-size: 0.78rem; color: var(--text3); letter-spacing: 0.05em; }
+
+    .skills-title { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 400; margin-bottom: 1.2rem; color: var(--text); }
+    .skills-grid { display: flex; flex-wrap: wrap; gap: 0.65rem; }
+    .skill-chip {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      padding: 0.42rem 1rem; background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 999px; font-size: 0.83rem; color: var(--text2); transition: all 0.25s; cursor: default;
+    }
+    .skill-chip:hover { border-color: var(--accent2); color: var(--accent2); background: var(--accent-bg); }
+    .skill-chip .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent2); flex-shrink: 0; }
+
+    /* PROJECTS */
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.4rem; }
+    .project-card {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); overflow: hidden;
+      transition: transform 0.32s ease, border-color 0.28s, box-shadow 0.32s;
+    }
+    .project-card:hover { transform: translateY(-6px); border-color: var(--border2); box-shadow: 0 24px 55px rgba(0,0,0,0.5), 0 0 30px rgba(125,28,46,0.12); }
+    .project-img { width: 100%; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; font-size: 2.6rem; background: var(--bg3); position: relative; overflow: hidden; }
+    .project-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(125,28,46,0.07) 0%, transparent 60%); }
+    .project-body { padding: 1.2rem 1.4rem 1.5rem; }
+    .project-tag { font-size: 0.69rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent2); margin-bottom: 0.45rem; }
+    .project-title { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-weight: 400; color: var(--text); margin-bottom: 0.45rem; line-height: 1.3; }
+    .project-desc { font-size: 0.83rem; color: var(--text3); font-weight: 300; line-height: 1.65; }
+
+    /* FOOTER */
+    footer { text-align: center; padding: 2.2rem 2rem; border-top: 1px solid var(--border); color: var(--text3); font-size: 0.8rem; letter-spacing: 0.04em; }
+    footer span { color: var(--accent2); }
+
+    /* FADE-IN */
+    .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* MOBILE */
+    @media (max-width: 680px) {
+      nav { padding: 1rem 1.3rem; }
+      .nav-links { display: none; flex-direction: column; position: absolute; top: 57px; left: 0; right: 0; background: rgba(8,5,7,0.97); padding: 1.4rem 1.8rem; border-bottom: 1px solid var(--border); gap: 1.2rem; }
+      .nav-links.open { display: flex; }
+      .hamburger { display: flex; }
+      section { padding: 5rem 1.2rem 3.5rem; }
+      .about-body { grid-template-columns: 1fr; gap: 2rem; }
+      .projects-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#home" class="nav-logo">V.</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home"     onclick="closeMenu()">Home</a></li>
+      <li><a href="#about"    onclick="closeMenu()">About</a></li>
+      <li><a href="#projects" onclick="closeMenu()">Projects</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- HOME -->
+  <section id="home">
+    <div class="container">
+      <p class="eyebrow">Tech student · Open to internships</p>
+      <h1>Hey, I'm<br><em>Vaishnavi</em></h1>
+      <div class="typing-wrapper">
+        <span id="typed-text"></span><span class="cursor"></span>
+      </div>
+      <p class="home-desc">
+        Just a student who loves building things — websites, programs, whatever looks interesting.
+        Still learning, always experimenting.
+      </p>
+      <div class="btn-group">
+        <a href="https://github.com/" target="_blank" class="btn btn-primary">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.1.82-.26.82-.58v-2c-3.34.72-4.04-1.6-4.04-1.6-.54-1.38-1.33-1.74-1.33-1.74-1.08-.74.08-.72.08-.72 1.2.08 1.83 1.23 1.83 1.23 1.06 1.82 2.8 1.3 3.48.99.1-.77.42-1.3.76-1.6-2.67-.3-5.47-1.34-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02 0 2.04.13 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.65.25 2.87.12 3.17.77.84 1.24 1.91 1.24 3.22 0 4.6-2.8 5.63-5.48 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.22.69.83.57C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          GitHub
+        </a>
+        <a href="https://linkedin.com/" target="_blank" class="btn btn-secondary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.23 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.73V1.73C24 .77 23.21 0 22.23 0z"/></svg>
+          LinkedIn
+        </a>
+      </div>
+    </div>
+    <div class="scroll-hint">
+      <span>scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <hr class="section-divider" />
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <p class="section-label fade-up">Who I am</p>
+      <h2 class="section-title fade-up">About Me</h2>
+      <div class="about-body">
+        <div class="about-text fade-up">
+          <p>I'm Vaishnavi, a tech student with a deep curiosity for how things are built — from the logic inside a C++ program to the pixels of a polished web interface. I believe great software lives at the crossroads of clear thinking and purposeful design.</p>
+          <p>My journey started with competitive programming and gradually grew into full-stack web development. I enjoy the challenge of translating ideas into functional, beautiful digital products — whether that's a clean UI or an efficient data structure.</p>
+          <p>When I'm not coding, I'm exploring UI design, learning new frameworks, or working on personal projects that stretch my skills. I'm actively looking for internship opportunities where I can contribute, learn, and grow.</p>
+        </div>
+        <div class="about-aside fade-up">
+          <div class="about-stat"><div class="about-stat-num">10+</div><div class="about-stat-label">Projects built</div></div>
+          <div class="about-stat"><div class="about-stat-num">1+</div><div class="about-stat-label">Year of coding</div></div>
+          <div class="about-stat"><div class="about-stat-num">5</div><div class="about-stat-label">Technologies</div></div>
+        </div>
+      </div>
+      <div class="fade-up">
+        <h3 class="skills-title">Skills &amp; Tools</h3>
+        <div class="skills-grid">
+          <span class="skill-chip"><span class="dot"></span>HTML</span>
+          <span class="skill-chip"><span class="dot"></span>CSS</span>
+          <span class="skill-chip"><span class="dot"></span>JavaScript</span>
+          <span class="skill-chip"><span class="dot"></span>Python</span>
+          <span class="skill-chip"><span class="dot"></span>C++</span>
+          <span class="skill-chip"><span class="dot"></span>Git</span>
+          <span class="skill-chip"><span class="dot"></span>GitHub</span>
+          <span class="skill-chip"><span class="dot"></span>Responsive Design</span>
+          <span class="skill-chip"><span class="dot"></span>UI Design</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider" />
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="container">
+      <p class="section-label fade-up">What I've built</p>
+      <h2 class="section-title fade-up">Projects</h2>
+      <div class="projects-grid">
+        <article class="project-card fade-up">
+          <div class="project-img">📦</div>
+          <div class="project-body">
+            <p class="project-tag">C++ · Data Structures</p>
+            <h3 class="project-title">Courier Tracking System</h3>
+            <p class="project-desc">A console-based logistics tracker built in C++ using linked lists and file I/O to manage parcel status and delivery routes.</p>
+          </div>
+        </article>
+        <article class="project-card fade-up">
+          <div class="project-img">🎓</div>
+          <div class="project-body">
+            <p class="project-tag">Web · Full-stack</p>
+            <h3 class="project-title">CampusConnect</h3>
+            <p class="project-desc">A student collaboration platform for sharing resources, announcements, and connecting with peers across departments.</p>
+          </div>
+        </article>
+        <article class="project-card fade-up">
+          <div class="project-img">💸</div>
+          <div class="project-body">
+            <p class="project-tag">JavaScript · Web App</p>
+            <h3 class="project-title">Expense Tracker</h3>
+            <p class="project-desc">A sleek web app to log, categorise, and visualise personal spending with local storage persistence and summary charts.</p>
+          </div>
+        </article>
+        <article class="project-card fade-up">
+          <div class="project-img">🃏</div>
+          <div class="project-body">
+            <p class="project-tag">JavaScript · Game</p>
+            <h3 class="project-title">Memory Flip Card Game</h3>
+            <p class="project-desc">An interactive memory matching game with smooth card-flip animations, difficulty levels, and a move counter.</p>
+          </div>
+        </article>
+        <article class="project-card fade-up">
+          <div class="project-img">📋</div>
+          <div class="project-body">
+            <p class="project-tag">HTML · CSS · UI</p>
+            <h3 class="project-title">Event Registration UI</h3>
+            <p class="project-desc">A clean, multi-step registration form UI designed for college events, with real-time validation and a confirmation screen.</p>
+          </div>
+        </article>
+        <article class="project-card fade-up">
+          <div class="project-img">✈️</div>
+          <div class="project-body">
+            <p class="project-tag">UI Design · Web</p>
+            <h3 class="project-title">Travel Website UI</h3>
+            <p class="project-desc">A visually rich travel landing page showcasing destination cards, an itinerary planner layout, and immersive hero design.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 Vaishnavi Portfolio &nbsp;·&nbsp; Designed &amp; built with <span>♥</span></p>
+  </footer>
+
+  <script>
+    document.getElementById('hamburger').addEventListener('click', () => {
+      document.getElementById('navLinks').classList.toggle('open');
+    });
+    function closeMenu() { document.getElementById('navLinks').classList.remove('open'); }
+
+    const words = ['Web Developer', 'UI Designer', 'C++ Programmer'];
+    let wi = 0, ci = 0, deleting = false;
+    const el = document.getElementById('typed-text');
+    function type() {
+      const word = words[wi];
+      if (!deleting) {
+        el.textContent = word.slice(0, ++ci);
+        if (ci === word.length) { deleting = true; setTimeout(type, 1800); return; }
+        setTimeout(type, 90);
+      } else {
+        el.textContent = word.slice(0, --ci);
+        if (ci === 0) { deleting = false; wi = (wi + 1) % words.length; }
+        setTimeout(type, 52);
+      }
+    }
+    setTimeout(type, 600);
+
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+  </script>
+</body>
+</html>
